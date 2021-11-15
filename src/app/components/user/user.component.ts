@@ -13,7 +13,7 @@ interface User {
 })
 export class UserComponent implements OnInit {
   user: User = {
-    username: 'Lidiya',
+    username: 'Logged in as Lidiya',
     role: 'Admin',
     profileImage: 'profileImage.img'
   }
