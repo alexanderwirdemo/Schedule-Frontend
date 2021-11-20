@@ -1,0 +1,19 @@
+
+p {
+    font-family:'Times New Roman', Times, serif;
+}
+
+.image-text {
+    background-image: url(https://st3.depositphotos.com/1297731/17579/i/600/depositphotos_175796164-stock-photo-snow-covered-fir-trees-in.jpg);
+    background-size: cover;
+    background-clip: text;
+    color: transparent;
+
+    font-family: var(--ff-title);
+  font-weight: var(--fw-title);
+  text-transform: uppercase;
+  font-size: calc(3rem + 7vw);
+  line-height: .8;
+  text-align: center;
+  margin: 0;
+}
