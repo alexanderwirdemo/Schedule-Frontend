@@ -10,6 +10,7 @@ export class ApiService {
   baseUrl = 'http://localhost:3000/';
   headers: HttpHeaders;
   token: String;
+  _courseMap: Map<String, Array<Number>>;
 
   constructor(private _http: HttpClient) { 
     this.token = "3755~0H049oLoUPpNxP85OmmXJf8MiSE5R7Fv4HvFPkt8GB3634QvaksVv3XqVM9DEF2A";
@@ -22,6 +23,14 @@ export class ApiService {
     });*/
     
   }
+
+  setCourseMap(courseMap: Map<String, Array<Number>>){
+    this._courseMap = courseMap;
+  }
+
+  getMyGV(val: boolean){
+    return this._courseMap;
+  }
   
 
   getTypeRequest(url) {
@@ -33,7 +42,7 @@ export class ApiService {
       'Authorization': 'Bearer '+this.token,
     });*/
     return this._http.get(`${this.baseUrl}${url}`).pipe(map(res => {
-      console.dir(res);
+      //console.dir(res);
     return res;
     }));
     }
