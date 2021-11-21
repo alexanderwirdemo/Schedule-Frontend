@@ -12,4 +12,26 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public name = "username";
+  public schedule = "";
+  
+  Template: `
+  <h2> Welcome {{name}} <h2>
+  `
+
+  greetUser() {
+    return "Hej  " + this.name + "!";
+  }
+
+
+  onScience(){
+    console.log('Science clicked');
+    this.schedule = 'Science clicked';
+  }
+
+  onSoa(){
+    console.log('SOA clicked');
+    this.schedule = 'SOA clicked';
+  }
+
 }

@@ -1,1 +1,32 @@
-<p>app-login test success! :D </p>
+<h1>{{greetUser()}}</h1>
+
+<h3>Kurserna du har ansvar över är:</h3>
+<table>   
+    <tr>
+       <th>ID</th>
+       <th>Kurskod, Kursnamn</th>
+       <th>Deltagande Lärare</th>
+       <th>Campus</th>
+       <th>Komplett Schema</th>
+    </tr>
+    <tr>
+        <td>D0023E</td>
+        <td>Forskningsmetoder inom informationssystem</td>
+        <td>(Visa deltagande lärare)</td>
+        <td>Luleå</td>
+        <td><button (click)="onScience()">Visa Schema</button></td>
+    </tr>
+    <tr>
+        <td>D0031N</td>
+        <td>Enterprise Architecture och SOA</td>
+        <td>(Visa deltagande lärare)</td>
+        <td>Luleå</td>
+        <td><button (click)="onSoa()">Visa Schema</button></td>
+    </tr>
+
+
+    
+</table>
+
+<div class ="schedule"><h1>{{schedule}}</h1></div>
+<!--<table mat-table [datasource]=???></table> --->
