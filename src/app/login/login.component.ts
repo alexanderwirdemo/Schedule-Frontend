@@ -1,8 +1,7 @@
-import { Component, NgModule, OnInit } from '@angular/core';
-//import { AuthenticationService } from 'src/app/services/authentication-service/authentication.service';
-import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +15,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     //private authService, //AuthenticationService,
+    private _api: ApiService,
     private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -27,12 +27,19 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.loginForm.invalid) {
+    // If the form is invalid, do nothing
+    if (this.loginForm.invalid) {
+      console.error('Login form is invalid')
       return;
     }
-    //this.authService.login(this.loginForm.value).pipe(
-    //  map(token => this.router.navigate(['admin']))
-    //).subscribe()
 
+    // Get entered email and password
+    let email = this.loginForm.get('email').value
+    let password = this.loginForm.get('password').value
+    
+    let result = this._api.login(email, password).subscribe((response) => {
+      this.router.navigate(['/user']);
+    },
+    (error) => console.error(error))
   }
 }
