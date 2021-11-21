@@ -1,9 +1,24 @@
 import { createUrlResolverWithoutPackagePrefix } from '@angular/compiler';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
 import { UserComponent } from './components/user/user.component';
+import { LoginComponent } from './login/login.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    component: AppComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'user',
+    component: UserComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

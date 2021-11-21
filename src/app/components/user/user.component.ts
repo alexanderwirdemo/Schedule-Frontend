@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 interface User {
   username: string,
   role: string,
-  profileImage: string
+  profileImage: string,
 }
 
 @Component({
