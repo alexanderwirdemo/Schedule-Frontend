@@ -1,4 +1,11 @@
 <div *ngIf="user" class="main-div">
+    <form [formGroup]="searchCourseForm" (ngSubmit)="searchCourse()">
+        <div class="Form-group">
+            <label for="Kurskod">Kurskod</label>
+            <input type="text" name = "Kurskod" class="form-control" formControlName="courseCode">
+        </div>
+        <button class="btn btn-primary" type="submit">Sök</button>
+     </form>
     <form [formGroup]="user">
         <b>{{user.username}}</b>
 
