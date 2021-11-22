@@ -28,5 +28,17 @@
     
 </table>
 
-<div class ="schedule"><h1>{{schedule}}</h1></div>
-<!--<table mat-table [datasource]=???></table> --->
+
+<div class="container">
+<h1>Sök via Kurskod</h1> 
+    <form #searchcourse="ngForm"(ngSubmit)="submit(searchcourse)">
+        <div class="Form-group">
+            <label for="Kurskod">Kurskod</label>
+            <input type="text" name = "Kurskod" class="form-control" ngModel>
+        </div>
+        <button class="btn btn-primary" type="submit">Sök</button>
+     </form>
+
+</div>
+
+ <h1>{{schedule}}</h1>

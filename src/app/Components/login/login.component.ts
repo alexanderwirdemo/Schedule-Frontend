@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
-  title = 'Eriks hörna';
+  form: FormGroup;
+  constructor(private fb: FormBuilder) { }
+
   ngOnInit(): void {
+    this.form = this.fb.group({
+      kurskod: ''
+    }); 
   }
 
   public name = "username";
@@ -20,7 +25,7 @@ export class LoginComponent implements OnInit {
   `
 
   greetUser() {
-    return "Hej  " + this.name + "!";
+    return "Hej " + this.name + "!";
   }
 
 
@@ -34,4 +39,10 @@ export class LoginComponent implements OnInit {
     this.schedule = 'SOA clicked';
   }
 
+ submit(searchcourse) {
+   console.log("Form submitted", searchcourse.value);
+   var code = document.getElementById("searchcourse");
+   this.schedule = 'Searched for something...', code;
+ }
+  
 }
