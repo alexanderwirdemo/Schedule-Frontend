@@ -104,3 +104,20 @@
     </form>
 
 </div>
+
+<table *ngIf="this._selectedCourses.length>0">
+    <thead>
+      <tr>
+        <th>Datum</th>    
+        <th>Tid</th>        
+        <th *ngFor="let header of _selectedCourses[0]['columnheaders']">{{header}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reservation of _selectedCourses[0]['reservations']">  
+        <td>{{reservation['startdate']}}</td>  
+        <td>{{reservation['starttime']}}</td>          
+        <td *ngFor="let entry of reservation['columns']">{{entry}}</td>
+      </tr>
+    </tbody>
+  </table>

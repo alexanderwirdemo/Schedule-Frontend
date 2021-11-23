@@ -22,7 +22,7 @@ export class UserComponent implements OnInit {
   }
   courseMap: Map<String, Array<Number>>;
   _selectedCourseCode: String;
-  _selectedCourses: Object[];
+  _selectedCourses: Object[] = [];
   _selectedCourse: Object;
   searchCourseForm = this.formBuilder.group({
     courseCode: ''
@@ -41,7 +41,7 @@ export class UserComponent implements OnInit {
   }
 
   async searchCourse(){
-    this._selectedCourses = [];
+    let courses = [];
     let courseCode = this.searchCourseForm.get('courseCode').value;
     console.log('coursecode: '+courseCode);
     this._selectedCourseCode = courseCode;
@@ -50,9 +50,10 @@ export class UserComponent implements OnInit {
     for(let courseIndex=0; courseIndex<courseValues.length; courseIndex++){
       let courseValue = courseValues[courseIndex];
       let res: any = await this._api.getTypeRequest("timeedit/api/course/"+courseValue).toPromise();
-      this._selectedCourses.push(res);  
+      courses.push(res);  
     }
-    console.dir(this._selectedCourses);
+    console.dir(courses);
+    this._selectedCourses = courses;
   }
 
   async createCourseRegister(){
