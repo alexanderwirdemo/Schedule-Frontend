@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
-  baseUrl = 'http://localhost:3000/';
+export class CanvasApiService {
   headers: HttpHeaders;
   token: String;
   _courseMap: Map<String, Array<Number>>;
@@ -25,13 +24,7 @@ export class ApiService {
     
   }
 
-  setCourseMap(courseMap: Map<String, Array<Number>>){
-    this._courseMap = courseMap;
-  }
 
-  getMyGV(val: boolean){
-    return this._courseMap;
-  }
   
 
   getTypeRequest(url) {
@@ -42,19 +35,19 @@ export class ApiService {
       'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
       'Authorization': 'Bearer '+this.token,
     });*/
-    return this._http.get(`${this.baseUrl}${url}`).pipe(map(res => {
+    return this._http.get(`${url}`).pipe(map(res => {
       //console.dir(res);
     return res;
     }));
     }
   postTypeRequest(url, payload): Observable<any> {
-    return this._http.post(`${this.baseUrl}${url}`, payload).pipe(map(res => {
+    return this._http.post(`${url}`, payload).pipe(map(res => {
     console.dir(res);
       return res;
     }));
     }
   putTypeRequest(url, payload) {
-    return this._http.put(`${this.baseUrl}${url}`, payload).pipe(map(res => {
+    return this._http.put(`${url}`, payload).pipe(map(res => {
     return res;
     }));
     }
