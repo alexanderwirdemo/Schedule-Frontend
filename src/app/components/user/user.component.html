@@ -5,6 +5,7 @@
             <input type="text" name = "Kurskod" class="form-control" formControlName="courseCode">
         </div>
         <button class="btn btn-primary" type="submit">Sök</button>
+        
      </form>
     <form [formGroup]="user">
         <b>{{user.username}}</b>
@@ -121,3 +122,4 @@
       </tr>
     </tbody>
   </table>
+  <button class="btn btn-primary" (click)="addEvent()">Lägg till event</button>
