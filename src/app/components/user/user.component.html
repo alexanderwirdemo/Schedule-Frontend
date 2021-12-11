@@ -2,9 +2,14 @@
     <form [formGroup]="searchCourseForm" (ngSubmit)="searchCourse()">
         <div class="Form-group">
             <label for="Kurskod">Kurskod</label>
-            <input type="text" name="Kurskod" class="form-control" formControlName="courseCode">
+
+            <input type="text" name = "Kurskod" class="form-control" formControlName="courseCode">
         </div>
         <button class="btn btn-primary" type="submit">Sök</button>
+        
+     </form>
+    <!--<form [formGroup]="user">
+        <b>{{user.username}}</b>
 
     </form>
     <form onsubmit="onSubmit">
@@ -24,26 +29,49 @@
         <input type="text" name="telefon" size="25" />
         <br />
 
-        <label for="modul">Modul</label>
-        <input type="text" name="modul" size="25" />
-    </form>
+
+    </form>-->
+
 
 </div>
 
 <table *ngIf="this._selectedCourses.length>0">
     <thead>
-        <tr>
-            <th>Datum</th>
-            <th>Tid</th>
-            <th *ngFor="let header of _selectedCourses[0]['columnheaders']">{{header}}</th>
-        </tr>
+
+      <tr>
+        <th>Datum</th>    
+        <th>Tid</th>        
+        <th *ngFor="let header of _selectedCourses[0]['columnheaders']">{{header}}</th>
+      </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let reservation of _selectedCourses[0]['reservations']">
-            <td>{{reservation['startdate']}}</td>
-            <td>{{reservation['starttime']}}</td>
-            <td *ngFor="let entry of reservation['columns']">{{entry}}</td>
-        </tr>
+      <!--<tr *ngFor="let reservation of _selectedCourses[0]['reservations']">  
+        <td>{{reservation['startdate']}}</td>  
+        <td>{{reservation['starttime']}}</td>  
+                  
+        <td *ngFor="let entry of reservation['columns']">{{entry}}</td>
+        <td>{{reservation['columns'][1]}}</td> 
+        <td>{{reservation['columns'][2]}}</td>  
+        <td>{{reservation['columns'][3]}}</td> 
+        <td>{{reservation['columns'][4]}}</td>
+      </tr>-->
+      <tr *ngFor="let reservation of _selectedCourses[0]['reservations']">  
+        <td>{{reservation['startdate']}}</td>  
+        <td>{{reservation['starttime']}}</td>  
+        <td>{{reservation['columns'][0]}}</td> 
+        <td>{{reservation['columns'][1]}}</td> 
+        <td>{{reservation['columns'][2]}}</td>  
+        <td>{{reservation['columns'][3]}}</td> 
+        <td>{{reservation['columns'][4]}}</td>
+        <td><div id="comments" contenteditable>{{reservation['columns'][5]}}</div></td> 
+        <td><div contenteditable>{{reservation['columns'][6]}}</div></td> 
+        <td>{{reservation['columns'][7]}}</td>  
+        <td>{{reservation['columns'][8]}}</td> 
+        <td>{{reservation['columns'][9]}}</td>
+        <td>{{reservation['columns'][10]}}</td>
+        <button class="btn btn-primary" (click)="addEvent(reservation, comments)">Lägg till event</button>
+      </tr>
     </tbody>
-</table>
-<button class="btn btn-primary" (click)="addEvent()">Lägg till event</button>
+  </table>
+  
+

@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CanvasApiService } from 'src/app/services/canvas-api.service';
 import { ApiService } from '../../services/api.service';
@@ -16,10 +16,12 @@ interface User {
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
+  @ViewChild('comments') comments: ElementRef;
   user: User = {
     username: 'Logged in as Lidiya',
     role: 'Admin',
-    profileImage: 'profileImage.img',
+
+     profileImage: 'profileImage.img',
   };
   _calendarEvent: CalendarEvent;
   formData: any = new FormData();
@@ -30,90 +32,78 @@ export class UserComponent implements OnInit {
   _selectedCourses: Object[] = [];
   _selectedCourse: Object;
   searchCourseForm = this.formBuilder.group({
-    courseCode: '',
-  });
+
+    courseCode: ''
+
 
   constructor(
     private _api: ApiService,
     private _canvasApi: CanvasApiService,
     private formBuilder: FormBuilder,
     private _http: HttpClient
-  ) {}
 
-  ngOnInit(): void {
+    ) { 
+      
+    }
+
+  ngOnInit(): void { 
+    
     console.dir(this._api._courseMap);
-    this.createCourseRegister();
-    this.courseMap = new Map<String, Array<Number>>();
-    this._calendarEvent = new CalendarEvent(
-      'user_30473',
-      'API Test!',
-      '2021-12-16T17:00:00Z',
-      '2021-12-16T20:00:00Z'
-    );
-
+      this.createCourseRegister();
+      this.courseMap = new Map<String, Array<Number>>();
+      this._calendarEvent = new CalendarEvent("user_30473", "API Test!", "2021-12-17T17:00:00Z", "2021-12-17T20:00:00Z");
+        
+    
     //this.formData.append("calendar_event", this._calendarEvent);
-    this.formData.append(
-      'calendar_event[context_code]',
-      this._calendarEvent.context_code
-    );
-    this.formData.append('calendar_event[title]', this._calendarEvent.title);
-    this.formData.append(
-      'calendar_event[start_at]',
-      this._calendarEvent.start_at
-    );
-    this.formData.append('calendar_event[end_at]', this._calendarEvent.end_at);
+    this.formData.append("calendar_event[context_code]", this._calendarEvent.context_code);
+    this.formData.append("calendar_event[title]", this._calendarEvent.title);
+    this.formData.append("calendar_event[start_at]", this._calendarEvent.start_at);
+    this.formData.append("calendar_event[end_at]", this._calendarEvent.end_at);
     console.dir(this.formData);
     console.log(this.formData.get('calendar_event'));
-    let token =
-      '3755~0H049oLoUPpNxP85OmmXJf8MiSE5R7Fv4HvFPkt8GB3634QvaksVv3XqVM9DEF2A';
-    this.headers = new HttpHeaders({
-      /*'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
+    let token = "3755~0H049oLoUPpNxP85OmmXJf8MiSE5R7Fv4HvFPkt8GB3634QvaksVv3XqVM9DEF2A";
+      this.headers = new HttpHeaders({
+        /*'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'http://localhost:4200',
+        'Access-Control-Allow-Headers': 'Content-Type, X-Auth-Token, Authorization, Origin',
         'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',*/
-      Authorization: 'Bearer ' + token,
-    });
+        Authorization: 'Bearer '+token
+      });
   }
 
-  async searchCourse() {
+  async searchCourse(){
     let courses = [];
     let courseCode = this.searchCourseForm.get('courseCode').value;
-    console.log('coursecode: ' + courseCode);
+    console.log('coursecode: '+courseCode);
     this._selectedCourseCode = courseCode;
     let courseValues: Number[] = this.courseMap.get(courseCode);
-    console.dir('courseValues', courseValues);
-    for (
-      let courseIndex = 0;
-      courseIndex < courseValues.length;
-      courseIndex++
-    ) {
+    console.dir(courseValues);
+    for(let courseIndex=0; courseIndex<courseValues.length; courseIndex++){
       let courseValue = courseValues[courseIndex];
-      let res: any = await this._api
-        .getTypeRequest('timeedit/api/course/' + courseValue)
-        .toPromise();
-      courses.push(res);
+      let res: any = await this._api.getTypeRequest("timeedit/api/course/"+courseValue).toPromise();
+      courses.push(res);  
     }
-    console.dir('Courses:', courses);
+    console.dir(courses);
     this._selectedCourses = courses;
   }
 
-  async createCourseRegister() {
-    console.log('Creating a course register, please wait....');
-    for (let courseIndex = 132868; courseIndex < 132869; courseIndex++) {
-      let courseCode: String = '';
-      let res: any = await this._api
-        .getTypeRequest('timeedit/api/course/' + courseIndex)
-        .toPromise();
-      if (res.reservations.length > 0) {
-        if (res.reservations[0].columns[7] !== '') {
-          console.log('Course found! ' + res.reservations[0].columns[7]);
+  async createCourseRegister(){
+    console.log("Creating a course register, please wait....");
+    for(let courseIndex=132868; courseIndex<132899; courseIndex++){
+      let courseCode: String = "";
+      let res: any = await this._api.getTypeRequest("timeedit/api/course/"+courseIndex).toPromise();
+        if(res.reservations.length>0){
+          if(res.reservations[0].columns[7]!==""){
+            console.log("Course found! "+res.reservations[0].columns[7]);
           let courseInfo = res.reservations[0].columns[7];
-          let periodPosition = courseInfo.indexOf('.');
-          courseCode = courseInfo.substring(0, periodPosition);
-          //console.log(courseCode);
+          let commaPosition = courseInfo.indexOf(".");
+          console.log(commaPosition);
+          if(commaPosition==-1){
+            courseCode = courseInfo;
+            console.log(courseCode);
+            // Check if the coursecode is already present in courseMap
+          if(this.courseMap.has(courseCode)){
 
-          // Check if the coursecode is already present in courseMap
-          if (this.courseMap.has(courseCode)) {
             // If so, the TimeEdit code is just added to the array of strings (i.e there is more than one schedule)
             let updatedCourseArray: Number[] = this.courseMap.get(courseCode);
             updatedCourseArray.push(courseIndex);
@@ -123,6 +113,27 @@ export class UserComponent implements OnInit {
             newCourseArray.push(courseIndex);
             this.courseMap.set(courseCode, newCourseArray);
           }
+
+          }
+          else{
+            courseCode = courseInfo.substring(0,commaPosition);
+            console.log(courseCode);
+            // Check if the coursecode is already present in courseMap
+          if(this.courseMap.has(courseCode)){
+            // If so, the TimeEdit code is just added to the array of strings (i.e there is more than one schedule)
+            let updatedCourseArray: Number[] = this.courseMap.get(courseCode);
+            updatedCourseArray.push(courseIndex);
+            this.courseMap.set(courseCode, updatedCourseArray);
+          }
+          else {
+            let newCourseArray: Number[] = [];
+            newCourseArray.push(courseIndex);
+            this.courseMap.set(courseCode, newCourseArray);
+          }
+          }
+          
+          }
+          
         }
       } else {
         // Do nothing, not a course
@@ -195,4 +206,82 @@ export class CalendarEvent {
     this.start_at = start_at;
     this.end_at = end_at;
   }
+
+  addEvent(reservation: any, comments: any){
+    console.dir(reservation);
+    const com = document.getElementById("comments");
+    console.dir(com);
+    console.log(this.comments);
+    console.dir(comments);
+    let title = reservation.columns[1];
+    let starttime = reservation.startdate+'T'+reservation.starttime+":00Z";
+    let endtime = reservation.enddate+'T'+reservation.endtime+":00Z";
+    console.log(title);
+    console.log(starttime);
+    console.log(endtime);
+
+    //this._calendarEvent = new CalendarEvent("user_30473", title, "2021-12-16T17:00:00Z", "2021-12-16T20:00:00Z");
+    this._calendarEvent = new CalendarEvent("user_30473", title, starttime, endtime);
+        
+    
+    //this.formData.append("calendar_event", this._calendarEvent);
+    this.formData.append("calendar_event[context_code]", this._calendarEvent.context_code);
+    this.formData.append("calendar_event[title]", this._calendarEvent.title);
+    this.formData.append("calendar_event[start_at]", this._calendarEvent.start_at);
+    this.formData.append("calendar_event[end_at]", this._calendarEvent.end_at);
+
+    let token = "3755~0H049oLoUPpNxP85OmmXJf8MiSE5R7Fv4HvFPkt8GB3634QvaksVv3XqVM9DEF2A";
+    //let url = "canvas/api/courses/";
+    let url = "https://ltu.instructure.com/api/v1/calendar_events.json";
+    /*let calendar_event = {
+      context_code: "user_30473",
+      title: "API Test!",
+      start_at: "2021-12-16T17:00:00Z",
+      end_at: "2021-12-16T20:00:00Z"
+  };
+    let formData: any = new FormData();
+    formData.append("calendar_event", this.calendarEvent);
+    
+    let headers: HttpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+      Authorization: 'Bearer '+token
+    });*/
+
+            //let headers = {Authorization: "Bearer "+token};
+            
+            
+            let method = "POST";
+            //method: 'POST'
+
+    console.log("Adding event");
+    console.dir(this.formData);
+    console.dir(this.headers);
+    let calendar_event: CalendarEvent = this.formData.get('calendar_event[context_code]');
+    console.dir(calendar_event);
+    this._http.post<any>(url, this.formData ,{headers: this.headers}).subscribe(data => {
+        
+        console.dir(data);
+    });
+    //let res = await this._canvasApi.postTypeRequest(url, required).toPromise();
+    //console.dir(res);
+
+  }
+}
+
+export class CalendarEvent{
+  public context_code: String;
+  public title: String;
+  public start_at: String;
+  public end_at: String;
+
+  constructor(context_code: String, title: String, start_at: String, end_at: String){
+    this.context_code = context_code;
+    this.title = title;
+    this.start_at = start_at;
+    this.end_at = end_at;
+  }
+
 }

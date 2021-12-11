@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,9 +17,10 @@ import { LogoutComponent } from './logout/logout.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
+    BrowserModule, 
+    FormsModule, 
+    ReactiveFormsModule
   ],
   providers: [ApiService, authInterceptorProviders],
   bootstrap: [AppComponent, ApiService],

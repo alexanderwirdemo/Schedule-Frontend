@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+        "target": "https://ltu.instructure.com/api/v1/calendar_events.json",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}
