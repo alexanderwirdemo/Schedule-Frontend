@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,24 +8,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from './services/api.service';
 
+import { authInterceptorProviders } from './helpers/auth.interceptor';
+import { LogoutComponent } from './logout/logout.component';
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    UserComponent,
-    LoginComponent,
-    HeaderComponent
-  ],
+  declarations: [AppComponent, UserComponent, LoginComponent, HeaderComponent, LogoutComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [ApiService],
-  bootstrap: [AppComponent, ApiService]
+  providers: [ApiService, authInterceptorProviders],
+  bootstrap: [AppComponent, ApiService],
 })
-export class AppModule { }
+export class AppModule {}
