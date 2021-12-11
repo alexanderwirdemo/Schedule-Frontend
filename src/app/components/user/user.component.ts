@@ -5,23 +5,24 @@ import { CanvasApiService } from 'src/app/services/canvas-api.service';
 import { ApiService } from '../../services/api.service';
 
 interface User {
-  username: string,
-  role: string,
-  profileImage: string
+  username: string;
+  role: string;
+  profileImage: string;
 }
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
   @ViewChild('comments') comments: ElementRef;
   user: User = {
     username: 'Logged in as Lidiya',
     role: 'Admin',
-    profileImage: 'profileImage.img'
-  }
+
+     profileImage: 'profileImage.img',
+  };
   _calendarEvent: CalendarEvent;
   formData: any = new FormData();
   headers: HttpHeaders;
@@ -31,14 +32,16 @@ export class UserComponent implements OnInit {
   _selectedCourses: Object[] = [];
   _selectedCourse: Object;
   searchCourseForm = this.formBuilder.group({
+
     courseCode: ''
-  });
+
 
   constructor(
     private _api: ApiService,
     private _canvasApi: CanvasApiService,
     private formBuilder: FormBuilder,
     private _http: HttpClient
+
     ) { 
       
     }
@@ -100,16 +103,17 @@ export class UserComponent implements OnInit {
             console.log(courseCode);
             // Check if the coursecode is already present in courseMap
           if(this.courseMap.has(courseCode)){
+
             // If so, the TimeEdit code is just added to the array of strings (i.e there is more than one schedule)
             let updatedCourseArray: Number[] = this.courseMap.get(courseCode);
             updatedCourseArray.push(courseIndex);
             this.courseMap.set(courseCode, updatedCourseArray);
-          }
-          else {
+          } else {
             let newCourseArray: Number[] = [];
             newCourseArray.push(courseIndex);
             this.courseMap.set(courseCode, newCourseArray);
           }
+
           }
           else{
             courseCode = courseInfo.substring(0,commaPosition);
@@ -131,15 +135,76 @@ export class UserComponent implements OnInit {
           }
           
         }
-        else{
-          // Do nothing, not a course
-        }
-        //console.dir(res);
-      
+      } else {
+        // Do nothing, not a course
+      }
+      //console.dir(res);
     }
     this._api.setCourseMap(this.courseMap);
     console.dir(this.courseMap);
-    
+  }
+
+  addEvent() {
+    let token =
+      '3755~0H049oLoUPpNxP85OmmXJf8MiSE5R7Fv4HvFPkt8GB3634QvaksVv3XqVM9DEF2A';
+    //let url = "canvas/api/courses/";
+    let url = 'https://ltu.instructure.com/api/v1/calendar_events.json';
+    /*let calendar_event = {
+      context_code: "user_30473",
+      title: "API Test!",
+      start_at: "2021-12-16T17:00:00Z",
+      end_at: "2021-12-16T20:00:00Z"
+  };
+    let formData: any = new FormData();
+    formData.append("calendar_event", this.calendarEvent);
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+      Authorization: 'Bearer '+token
+    });*/
+
+    //let headers = {Authorization: "Bearer "+token};
+
+    let method = 'POST';
+    //method: 'POST'
+
+    console.log('Adding event');
+    console.dir(this.formData);
+    let calendar_event: CalendarEvent = this.formData.get(
+      'calendar_event[context_code]'
+    );
+    console.dir(calendar_event);
+    this._http
+      .post<any>(url, this.formData, { headers: this.headers })
+      .subscribe((data) => {
+        //console.dir(formData);
+        //console.dir(headers);
+        console.dir(data);
+      });
+    //let res = await this._canvasApi.postTypeRequest(url, required).toPromise();
+    //console.dir(res);
+  }
+}
+
+export class CalendarEvent {
+  public context_code: String;
+  public title: String;
+  public start_at: String;
+  public end_at: String;
+
+  constructor(
+    context_code: String,
+    title: String,
+    start_at: String,
+    end_at: String
+  ) {
+    this.context_code = context_code;
+    this.title = title;
+    this.start_at = start_at;
+    this.end_at = end_at;
   }
 
   addEvent(reservation: any, comments: any){

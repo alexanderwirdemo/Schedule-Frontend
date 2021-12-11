@@ -1,0 +1,10 @@
+3755~BZPMobUBpQxom7SkF98kPgZfpc62m3xYMVVB1tqWdcViz2oxmAguj4Reo89EJN1k
+
+
+curl 'https://ltu.instructure.com/api/v1/calendar_events.json' \ 
+-X POST \ 
+-F 'calendar_event[context_code]=course_6241' \ 
+-F 'calendar_event[title]=API Test!' \ 
+-F 'calendar_event[start_at]=2018-11-16T17:00:00Z' \ 
+-F 'calendar_event[end_at]=2018-11-16T20:00:00Z' \ 
+-H "Authorization: Bearer 3755~BZPMobUBpQxom7SkF98kPgZfpc62m3xYMVVB1tqWdcViz2oxmAguj4Reo89EJN1k" 
