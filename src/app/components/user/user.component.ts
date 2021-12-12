@@ -51,22 +51,8 @@ export class UserComponent implements OnInit {
     console.dir(this._api._courseMap);
       this.createCourseRegister();
       this.courseMap = new Map<String, Array<Number>>();
-      this._calendarEvent = new CalendarEvent("user_30473", "API Test!", "2021-12-17T17:00:00Z", "2021-12-17T20:00:00Z");
-        
-    
-    //this.formData.append("calendar_event", this._calendarEvent);
-    this.formData.append("calendar_event[context_code]", this._calendarEvent.context_code);
-    this.formData.append("calendar_event[title]", this._calendarEvent.title);
-    this.formData.append("calendar_event[start_at]", this._calendarEvent.start_at);
-    this.formData.append("calendar_event[end_at]", this._calendarEvent.end_at);
-    console.dir(this.formData);
-    console.log(this.formData.get('calendar_event'));
     let token = "3755~0H049oLoUPpNxP85OmmXJf8MiSE5R7Fv4HvFPkt8GB3634QvaksVv3XqVM9DEF2A";
       this.headers = new HttpHeaders({
-        /*'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:4200',
-        'Access-Control-Allow-Headers': 'Content-Type, X-Auth-Token, Authorization, Origin',
-        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',*/
         Authorization: 'Bearer '+token
       });
   }
@@ -207,54 +193,32 @@ export class CalendarEvent {
     this.end_at = end_at;
   }
 
-  addEvent(reservation: any, comments: any){
+  addEvent(reservation: any, row: any){
     console.dir(reservation);
-    const com = document.getElementById("comments");
-    console.dir(com);
-    console.log(this.comments);
-    console.dir(comments);
+    let comment = (<HTMLInputElement>document.getElementById("comment"+row)).value;
+    let meetingLink = (<HTMLInputElement>document.getElementById("meetinglink"+row)).value;
     let title = reservation.columns[1];
-    let starttime = reservation.startdate+'T'+reservation.starttime+":00Z";
-    let endtime = reservation.enddate+'T'+reservation.endtime+":00Z";
+    let starttime = reservation.startdate+'T'+reservation.starttime+":UTC+01:00";
+    let endtime = reservation.enddate+'T'+reservation.endtime+":UTC+01:00";
     console.log(title);
     console.log(starttime);
     console.log(endtime);
+    console.log(comment);
+    console.log(meetingLink);
+    let commentsAndLink = "Kommentarer: "+comment+"<br>"+"Möteslänk: "+meetingLink;
 
-    //this._calendarEvent = new CalendarEvent("user_30473", title, "2021-12-16T17:00:00Z", "2021-12-16T20:00:00Z");
     this._calendarEvent = new CalendarEvent("user_30473", title, starttime, endtime);
-        
-    
-    //this.formData.append("calendar_event", this._calendarEvent);
+
     this.formData.append("calendar_event[context_code]", this._calendarEvent.context_code);
     this.formData.append("calendar_event[title]", this._calendarEvent.title);
     this.formData.append("calendar_event[start_at]", this._calendarEvent.start_at);
     this.formData.append("calendar_event[end_at]", this._calendarEvent.end_at);
+    this.formData.append("calendar_event[description]", commentsAndLink);
 
     let token = "3755~0H049oLoUPpNxP85OmmXJf8MiSE5R7Fv4HvFPkt8GB3634QvaksVv3XqVM9DEF2A";
-    //let url = "canvas/api/courses/";
     let url = "https://ltu.instructure.com/api/v1/calendar_events.json";
-    /*let calendar_event = {
-      context_code: "user_30473",
-      title: "API Test!",
-      start_at: "2021-12-16T17:00:00Z",
-      end_at: "2021-12-16T20:00:00Z"
-  };
-    let formData: any = new FormData();
-    formData.append("calendar_event", this.calendarEvent);
-    
-    let headers: HttpHeaders = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
-      Authorization: 'Bearer '+token
-    });*/
-
-            //let headers = {Authorization: "Bearer "+token};
-            
-            
-            let method = "POST";
-            //method: 'POST'
+                    
+    let method = "POST";
 
     console.log("Adding event");
     console.dir(this.formData);
@@ -262,12 +226,8 @@ export class CalendarEvent {
     let calendar_event: CalendarEvent = this.formData.get('calendar_event[context_code]');
     console.dir(calendar_event);
     this._http.post<any>(url, this.formData ,{headers: this.headers}).subscribe(data => {
-        
         console.dir(data);
     });
-    //let res = await this._canvasApi.postTypeRequest(url, required).toPromise();
-    //console.dir(res);
-
   }
 }
 
