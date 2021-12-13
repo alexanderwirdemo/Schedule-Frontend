@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TokenStorageService } from '../services/token-storage.service';
+import { TokenStorageService } from '../../services/token-storage.service';
 
 @Component({
   selector: 'app-logout',

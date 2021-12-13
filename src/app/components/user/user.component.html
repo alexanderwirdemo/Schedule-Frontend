@@ -1,13 +1,14 @@
+<app-header></app-header>
 <div *ngIf="user" class="main-div">
     <form [formGroup]="searchCourseForm" (ngSubmit)="searchCourse()">
         <div class="Form-group">
             <label for="Kurskod">Kurskod</label>
 
-            <input type="text" name = "Kurskod" class="form-control" formControlName="courseCode">
+            <input type="text" name="Kurskod" class="form-control" formControlName="courseCode">
         </div>
         <button class="btn btn-primary" type="submit">Sök</button>
-        
-     </form>
+
+    </form>
     <!--<form [formGroup]="user">
         <b>{{user.username}}</b>
 
@@ -38,30 +39,28 @@
 <table *ngIf="this._selectedCourses.length>0">
     <thead>
 
-      <tr>
-        <th>Datum</th>    
-        <th>Tid</th>        
-        <th *ngFor="let header of _selectedCourses[0]['columnheaders']">{{header}}</th>
-      </tr>
+        <tr>
+            <th>Datum</th>
+            <th>Tid</th>
+            <th *ngFor="let header of _selectedCourses[0]['columnheaders']">{{header}}</th>
+        </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let reservation of _selectedCourses[0]['reservations']; let i = index;">  
-        <td>{{reservation['startdate']}}</td>  
-        <td>{{reservation['starttime']}}</td>  
-        <td>{{reservation['columns'][0]}}</td> 
-        <td>{{reservation['columns'][1]}}</td> 
-        <td>{{reservation['columns'][2]}}</td>  
-        <td>{{reservation['columns'][3]}}</td> 
-        <td>{{reservation['columns'][4]}}</td>
-        <td><input type="text" id="comment{{i+1}}" name="comment+{{i+1}}" value="{{reservation['columns'][5]}}"></td>
-        <td><input type="text" id="meetinglink{{i+1}}" name="meetinglink+{{i+1}}" value="{{reservation['columns'][6]}}"></td> 
-        <td>{{reservation['columns'][7]}}</td>  
-        <td>{{reservation['columns'][8]}}</td> 
-        <td>{{reservation['columns'][9]}}</td>
-        <td>{{reservation['columns'][10]}}</td>
-        <button class="btn btn-primary" (click)="addEvent(reservation, i+1)">Lägg till event</button>
-      </tr>
+        <tr *ngFor="let reservation of _selectedCourses[0]['reservations']; let i = index;">
+            <td>{{reservation['startdate']}}</td>
+            <td>{{reservation['starttime']}}</td>
+            <td>{{reservation['columns'][0]}}</td>
+            <td>{{reservation['columns'][1]}}</td>
+            <td>{{reservation['columns'][2]}}</td>
+            <td>{{reservation['columns'][3]}}</td>
+            <td>{{reservation['columns'][4]}}</td>
+            <td><input type="text" id="comment{{i+1}}" name="comment+{{i+1}}" value="{{reservation['columns'][5]}}"></td>
+            <td><input type="text" id="meetinglink{{i+1}}" name="meetinglink+{{i+1}}" value="{{reservation['columns'][6]}}"></td>
+            <td>{{reservation['columns'][7]}}</td>
+            <td>{{reservation['columns'][8]}}</td>
+            <td>{{reservation['columns'][9]}}</td>
+            <td>{{reservation['columns'][10]}}</td>
+            <button class="btn btn-primary" (click)="addEvent(reservation, i+1)">Lägg till event</button>
+        </tr>
     </tbody>
-  </table>
-  
-
+</table>
