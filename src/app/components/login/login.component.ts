@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveToken(data.token)
         this.tokenStorage.saveUser(data.user)
         this.router.navigate(['/user']);
-    },
-    (error) => console.error(error))
+      },
+      (error) => console.error(error))
   }
 }
