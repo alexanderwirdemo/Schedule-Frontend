@@ -18,19 +18,19 @@ body {
 
 .menu>a {
     color: white;
-    padding-right: 15px;
+    padding-right: 20px;
 }
 
 .container {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 25px;
+    padding: 30px;
 }
 
 .logo {
-    height: 56px;
-    width: 56px;
+    height: 70px;
+    width: 80px;
 }
 
 index {
@@ -48,5 +48,27 @@ label {
 }
 
 button {
-    padding: 5px 10px 5px 10px;
+    appearance: none;
+    background-color: #FFFFFF;
+    border-radius: 40em;
+    border-style: none;
+    box-shadow: rgb(3, 32, 64) 0 -12px 6px inset;
+    box-sizing: border-box;
+    color: rgb(3, 32, 64);
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -.24px;
+    margin: 0;
+    outline: none;
+    padding: 1rem 1.3rem;
+    quotes: auto;
+    text-align: center;
+    text-decoration: none;
+    transition: all .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }

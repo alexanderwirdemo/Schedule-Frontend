@@ -9,3 +9,17 @@
 .container>* {
     width: 40%;
 }
+
+input {
+    width: 100%;
+    margin-bottom: 10px;
+    background: rgb(3, 32, 64);
+    padding: 10px;
+    font-size: 17px;
+    color: #ffffff;
+}
+
+textarea:focus,
+input:focus {
+    color: #ffffff;
+}
