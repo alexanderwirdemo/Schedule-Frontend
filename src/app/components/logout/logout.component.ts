@@ -22,6 +22,6 @@ export class LogoutComponent implements OnInit {
 
   onSubmit(): void {
     this.tokenStorage.logout(); // Remove token from session storage
-    this.router.navigate(['/user']);
+    this.router.navigate(['']);
   }
 }

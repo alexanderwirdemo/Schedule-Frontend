@@ -42,3 +42,8 @@ td {
 caption {
     padding: 10px;
 }
+
+label {
+    color: rgb(3, 32, 64);
+    padding: 4px 9px;
+}

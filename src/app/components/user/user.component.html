@@ -1,8 +1,14 @@
 <app-header></app-header>
+
+<div class="welcome-container">
+    Välkommen tillbaka {{user.Name}}!
+</div>
+
 <div *ngIf="user" class="main-div container">
+
     <form [formGroup]="searchCourseForm" (ngSubmit)="searchCourse()">
         <div class="Form-group">
-            <label for="Kurskod">Kurskod</label>
+            <label for="Kurskod">Välj kurskod för att lägga ett schema</label>
 
             <input type="text" name="Kurskod" class="form-control" formControlName="courseCode">
         </div>
@@ -54,7 +60,8 @@
             <td>{{reservation['columns'][2]}}</td>
             <td>{{reservation['columns'][3]}}</td>
             <td>{{reservation['columns'][4]}}</td>
-            <td><input type="text" id="comment{{i+1}}" name="comment+{{i+1}}" value="{{reservation['columns'][5]}}"></td>
+            <td><input type="text" id="comment{{i+1}}" name="comment+{{i+1}}" value="{{reservation['columns'][5]}}">
+            </td>
             <td><input type="text" id="meetinglink{{i+1}}" name="meetinglink+{{i+1}}" value="{{reservation['columns'][6]}}"></td>
             <td>{{reservation['columns'][7]}}</td>
             <td>{{reservation['columns'][8]}}</td>

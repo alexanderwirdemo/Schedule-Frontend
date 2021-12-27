@@ -2,13 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CanvasApiService } from 'src/app/services/canvas-api.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { ApiService } from '../../services/api.service';
-
-interface User {
-  username: string;
-  role: string;
-  profileImage: string;
-}
 
 @Component({
   selector: 'app-user',
@@ -17,12 +12,6 @@ interface User {
 })
 export class UserComponent implements OnInit {
   @ViewChild('comments') comments: ElementRef;
-
-  user: User = {
-    username: 'Logged in as Lidiya',
-    role: 'Admin',
-    profileImage: 'profileImage.img',
-  };
 
   _calendarEvent: CalendarEvent;
   formData: any = new FormData();
@@ -33,22 +22,22 @@ export class UserComponent implements OnInit {
   _selectedCourses: Object[] = [];
   _selectedCourse: Object;
   searchCourseForm = this.formBuilder.group({
-
     courseCode: ''
   });
+  user: {}
 
   constructor(
     private _api: ApiService,
     private _canvasApi: CanvasApiService,
     private formBuilder: FormBuilder,
-    private _http: HttpClient
+    private _http: HttpClient,
+    private tokenStorageService: TokenStorageService
   ) {
 
   }
 
   ngOnInit(): void {
 
-    console.dir(this._api._courseMap);
     this.createCourseRegister();
     this.courseMap = new Map<String, Array<Number>>();
     let token = "3755~0H049oLoUPpNxP85OmmXJf8MiSE5R7Fv4HvFPkt8GB3634QvaksVv3XqVM9DEF2A";
@@ -57,6 +46,7 @@ export class UserComponent implements OnInit {
       "Access-Control-Allow-Headers": '*',
       "Access-Control-Allow-Origin": '*'
     });
+    this.user = this.tokenStorageService.getUser()
   }
 
   async searchCourse() {
