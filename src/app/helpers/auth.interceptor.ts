@@ -13,7 +13,7 @@ import { TokenStorageService } from '../services/token-storage.service';
  */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private token: TokenStorageService) {}
+  constructor(private token: TokenStorageService) { }
 
   intercept(
     req: HttpRequest<any>,
@@ -21,9 +21,19 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     let authReq = req;
     const token = this.token.getToken();
-    if (token != null) {
+    if (token && req.url.includes('localhost')) {
       authReq = req.clone({
         headers: req.headers.set('Authorization', 'Bearer ' + token),
+      });
+    }
+    else if (token) {
+      authReq = req.clone({
+        headers: req.headers.set('Authorization', 'Bearer ' + token),
+      });
+    }
+    else if (req.headers.get('Origin')) {
+      authReq = req.clone({
+        headers: req.headers.set('Access-Control-Allow-Origin', req.headers.get('Origin')),
       });
     }
     return next.handle(authReq);
