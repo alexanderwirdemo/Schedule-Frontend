@@ -1,136 +1,123 @@
-<div *ngIf="user" class="main-div">
+<app-header></app-header>
+<!--<div id="header">
+    <img src="../user/logo.png" alt="">
+</div>-->
+<link rel="stylesheet" href="user.component.css">
+<div class="welcome-container">
+    Välkommen tillbaka Fredrik Lindahl!
+</div>
+<div class="container">
+    <div id="instructionbox">
+        <fieldset>
+            <legend>Instruktioner</legend>
+        <p>I listan till höger finns uppgifter om vilka kurser Du kommer att läsa/undervisa i.</p><br>
+        <p>Använd sökrutan här intill för att söka schema för en kurs genom at ange kurskod.</p><br>
+        <p>Vid träff ges alla planerade undervisningstillfällen. Skriv kommentarer och ange möteslänk vid behov.</p><br>
+        <p>Lägg sedan in tillfället i Canvas genom att trycka på knappen 'lägg till'.</p><br>
+    </fieldset>
+    </div>
+
+
+<div *ngIf="user" class="main-div" id="searchForm">
     <form [formGroup]="searchCourseForm" (ngSubmit)="searchCourse()">
         <div class="Form-group">
             <label for="Kurskod">Kurskod</label>
-            <input type="text" name = "Kurskod" class="form-control" formControlName="courseCode">
+
+            <input type="text" name="Kurskod" class="form-control" formControlName="courseCode">
         </div>
         <button class="btn btn-primary" type="submit">Sök</button>
-        
-     </form>
+
+    </form>
     <!--<form [formGroup]="user">
         <b>{{user.username}}</b>
 
-        <p>{{user.role}}</p>
+    </form>
+    <form onsubmit="onSubmit">
+        <label for="kurskod">Kurskod</label>
+        <input type="text" name="kurskod" size="20" />
+        <br />
 
-        <p>{{user.profileImage}}</p>
+        <label for="kursnamn">Kursnamn</label>
+        <input type="text" name="kursnamn" size="25" />
+        <br />
 
-        <TABLE BORDER="1">
-            <TR>
-                <TD>Kurskod</TD>
-                <TD>
-                    <INPUT TYPE="TEXT" NAME="kurskod" SIZE="20">
-                </TD>
-            </TR>
-            <TR>
-                <TD>Kursnamn</TD>
-                <TD>
-                    <INPUT TYPE="TEXT" NAME="kursnamn" SIZE="25">
-                </TD>
-            </TR>
-            <!DOCTYPE html>
-            <html>
+        <label for="kursansvarig">Kursansvarig</label>
+        <input type="text" name="Kursansvarig" size="25">
+        <br />
 
-            <head>
-                <meta charset="utf-8">
-                <title>Schedule</title>
-                <style>
-                    html {
-                        font-family: sans-serif;
-                    }
-                    
-                    table {
-                        border-collapse: collapse;
-                        border: 2px left rgb(200, 200, 200);
-                        letter-spacing: 1px;
-                        font-size: 0.8rem;
-                    }
-                    
-                    td,
-                    th {
-                        border: 1px left rgb(190, 190, 190);
-                        padding: 10px 20px;
-                    }
-                    
-                    td {
-                        text-align: left;
-                    }
-                    
-                    caption {
-                        padding: 10px;
-                    }
-                </style>
-            </head>
+        <label for="telefon">TelefonNr</label>
+        <input type="text" name="telefon" size="25" />
+        <br />
 
-            <body>
-                <h1>Schedule</h1>
-
-                <table>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <th>Pass 1: 08.15 -09.45</th>
-                        <th>Pass 2: 10.15 -11.45</th>
-                        <th>Pass 3: 13.00 -14.30</th>
-                        <th>Pass 4: 14.45 -16.15</th>
-                        <th>Pass 5: 16.30 -18.00</th>
-                    </tr>
-                    <tr>
-                        <th>Läsperiod 1</th>
-                        <td>Databaser 1</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>Java 2</td>
-                        <td>JavaScript 1</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <th>Läsperiod 2</th>
-                        <td>Databaser 2</td>
-                        <td>Java 1</td>
-                        <td>&nbsp;</td>
-                        <td>JavaScript</td>
-                        <td>BI</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                </table>
-            </body>
-
-            </html>
-
-        </TABLE>
-
-        <button class="button" type="submit">Upload Schedule</button>
 
     </form>-->
 
+
+</div>
+<div id="courseOverview">
+    <fieldset>
+        <legend>Dessa kurser har du</legend>
+    <table>
+        <thead>
+            <tr>
+                <th>Läsperiod 1</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td>S0009E</td>
+                <td>Programmering av datorspelsgrafik</td>
+            </tr>
+        </tbody>
+        <thead>
+            <tr>
+                <th>Läsperiod 2</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td>D0037D</td>
+                <td>Objektorienterad programmering</td>
+            </tr>
+        </tbody>
+    </table>
+</fieldset>
 </div>
 
+
+</div>
 <table *ngIf="this._selectedCourses.length>0">
     <thead>
-      <tr>
-        <th>Datum</th>    
-        <th>Tid</th>        
-        <th *ngFor="let header of _selectedCourses[0]['columnheaders']">{{header}}</th>
-      </tr>
+
+        <tr>
+            <th>Datum</th>
+            <th>Tid</th>
+            <th *ngFor="let header of _selectedCourses[0]['columnheaders']">{{header}}</th>
+        </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let reservation of _selectedCourses[0]['reservations']; let i = index;">  
-        <td>{{reservation['startdate']}}</td>  
-        <td>{{reservation['starttime']}}</td>  
-        <td>{{reservation['columns'][0]}}</td> 
-        <td>{{reservation['columns'][1]}}</td> 
-        <td>{{reservation['columns'][2]}}</td>  
-        <td>{{reservation['columns'][3]}}</td> 
-        <td>{{reservation['columns'][4]}}</td>
-        <td><input type="text" id="comment{{i+1}}" name="comment+{{i+1}}" value="{{reservation['columns'][5]}}"></td>
-        <td><input type="text" id="meetinglink{{i+1}}" name="meetinglink+{{i+1}}" value="{{reservation['columns'][6]}}"></td> 
-        <td>{{reservation['columns'][7]}}</td>  
-        <td>{{reservation['columns'][8]}}</td> 
-        <td>{{reservation['columns'][9]}}</td>
-        <td>{{reservation['columns'][10]}}</td>
-        <button class="btn btn-primary" (click)="addEvent(reservation, i+1)">Lägg till event</button>
-      </tr>
+        <tr *ngFor="let reservation of _selectedCourses[0]['reservations']; let i = index;">
+            <td>{{reservation['startdate']}}</td>
+            <td>{{reservation['starttime']}}</td>
+            <td>{{reservation['columns'][0]}}</td>
+            <td>{{reservation['columns'][1]}}</td>
+            <td>{{reservation['columns'][2]}}</td>
+            <td>{{reservation['columns'][3]}}</td>
+            <td>{{reservation['columns'][4]}}</td>
+            <td><input type="text" id="comment{{i+1}}" name="comment+{{i+1}}" value="{{reservation['columns'][5]}}"></td>
+            <td><input type="text" id="meetinglink{{i+1}}" name="meetinglink+{{i+1}}" value="{{reservation['columns'][6]}}"></td>
+            <td>{{reservation['columns'][7]}}</td>
+            <td>{{reservation['columns'][8]}}</td>
+            <td>{{reservation['columns'][9]}}</td>
+            <td>{{reservation['columns'][10]}}</td>
+            <button class="btn btn-primary" (click)="addEvent(reservation, i+1)">Lägg till event</button>
+        </tr>
     </tbody>
-  </table>
+</table>
   

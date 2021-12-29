@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CanvasApiService } from 'src/app/services/canvas-api.service';
 import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 
 interface User {
   username: string,
@@ -37,6 +38,7 @@ export class UserComponent implements OnInit {
   constructor(
     private _api: ApiService,
     private _canvasApi: CanvasApiService,
+    private _authApi: AuthService,
     private formBuilder: FormBuilder,
     private _http: HttpClient
     ) { 
@@ -44,14 +46,18 @@ export class UserComponent implements OnInit {
     }
 
   ngOnInit(): void { 
+
     
     console.dir(this._api._courseMap);
       this.createCourseRegister();
       this.courseMap = new Map<String, Array<Number>>();
-    let token = "3755~0H049oLoUPpNxP85OmmXJf8MiSE5R7Fv4HvFPkt8GB3634QvaksVv3XqVM9DEF2A";
+    //let token = "3755~0H049oLoUPpNxP85OmmXJf8MiSE5R7Fv4HvFPkt8GB3634QvaksVv3XqVM9DEF2A";
+    let token = "3755~L8wjj0L05fwgZdLE4i2OzTO0r2gyMtoraDVov8k7tUXGXsEHeQSG2FdGiM8j6fUi";
       this.headers = new HttpHeaders({
         Authorization: 'Bearer '+token
       });
+      let courses = this._authApi.courses('Svante Edzen')
+    console.dir(courses);
   }
 
   async searchCourse(){
@@ -69,10 +75,11 @@ export class UserComponent implements OnInit {
     console.dir(courses);
     this._selectedCourses = courses;
   }
-
+  
   async createCourseRegister(){
     console.log("Creating a course register, please wait....");
-    for(let courseIndex=132868; courseIndex<132899; courseIndex++){
+    // 132800 132940
+    for(let courseIndex=109600; courseIndex<109659; courseIndex++){
       let courseCode: String = "";
       let res: any = await this._api.getTypeRequest("timeedit/api/course/"+courseIndex).toPromise();
         if(res.reservations.length>0){
@@ -80,7 +87,7 @@ export class UserComponent implements OnInit {
             console.log("Course found! "+res.reservations[0].columns[7]);
           let courseInfo = res.reservations[0].columns[7];
           let commaPosition = courseInfo.indexOf(".");
-          console.log(commaPosition);
+          //console.log(commaPosition);
           if(commaPosition==-1){
             courseCode = courseInfo;
             console.log(courseCode);
@@ -150,7 +157,6 @@ export class UserComponent implements OnInit {
     this.formData.append("calendar_event[end_at]", this._calendarEvent.end_at);
     this.formData.append("calendar_event[description]", commentsAndLink);
 
-    let token = "3755~0H049oLoUPpNxP85OmmXJf8MiSE5R7Fv4HvFPkt8GB3634QvaksVv3XqVM9DEF2A";
     let url = "https://ltu.instructure.com/api/v1/calendar_events.json";
                     
     let method = "POST";

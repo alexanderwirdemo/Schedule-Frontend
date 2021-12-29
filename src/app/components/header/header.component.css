@@ -1,0 +1,14 @@
+.menu {
+    background: rgb(3, 32, 64);
+    padding: 10px 25px 10px 25px;
+}
+
+.menu>a {
+    color: white;
+    padding-right: 20px;
+}
+
+.logo {
+    height: 70px;
+    width: 80px;
+}

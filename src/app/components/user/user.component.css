@@ -13,7 +13,107 @@
     margin-top: 2%;
 }
 
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 5%;
+}
+
+#instructionbox {
+    width: 40%;
+}
+
+#searchForm {
+    margin: 5%;
+}
+
+#courseOverview {
+    width: 40%;
+}
+
 .main-div {
-    width: 100%;
-    justify-content: left;
+    
+}
+
+html {
+    font-family: sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    border: 2px left rgb(200, 200, 200);
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+}
+
+td,
+th {
+    border: 1px left rgb(190, 190, 190);
+    padding: 10px 20px;
+}
+
+td {
+    text-align: left;
+}
+
+caption {
+    padding: 10px;
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+body {
+    background: white;
+}
+
+index {
+    color: #f3f3f3;
+    font-family: cursive;
+    font-size: 25px;
+}
+
+label {
+    margin-right: 5px;
+}
+
+button {
+    background-color: #FFFFFF;
+    border-radius: 40em;
+    border-style: none;
+    box-shadow: rgb(3, 32, 64) 0 -12px 6px inset;
+    box-sizing: border-box;
+    color: rgb(3, 32, 64);
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: -.24px;
+    margin: 0;
+    outline: none;
+    padding: 1rem 1.3rem;
+    quotes: auto;
+    text-align: center;
+    text-decoration: none;
+    transition: all .15s;
+    touch-action: manipulation;
+}
+
+img {
+    float: left;
+    max-width: fit-content;
+    max-height: fit-content;
+}
+
+.welcome-container {
+    color: rgb(3, 32, 64);
+    padding: 10px 38px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
